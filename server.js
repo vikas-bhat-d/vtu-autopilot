@@ -266,6 +266,11 @@ app.get("/api/stats", async (_req, res) => {
   }
 });
 
+// GET /api/queue  — current queue depth (queued + processing)
+app.get("/api/queue", (_req, res) => {
+  res.json({ queued: queue.length, processing: activeJobs, total: queue.length + activeJobs });
+});
+
 // ── Start ────────────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
   console.log(`\n🛸  VTU Autopilot is live → http://localhost:${PORT}`);

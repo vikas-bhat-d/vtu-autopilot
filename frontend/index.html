@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VTU Autopilot — Skip the Suffering</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f172a'/%3E%3Cpath d='M16 5c0 0 7 4 7 11 0 3.5-1.6 6.5-4 8.2V26l-3-2-3 2v-1.8C10.6 22.5 9 19.5 9 16 9 9 16 5 16 5z' fill='%2360a5fa' opacity='.15'/%3E%3Cpath d='M16 5c0 0 7 4 7 11 0 3.5-1.6 6.5-4 8.2V26l-3-2-3 2v-1.8C10.6 22.5 9 19.5 9 16 9 9 16 5 16 5z' fill='none' stroke='%2360a5fa' stroke-width='1.5' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='15' r='2.2' fill='%2360a5fa'/%3E%3Cpath d='M12 24.5c-1.5 1-2.5 2-2 3s2 .5 3.5-.5M20 24.5c1.5 1 2.5 2 2 3s-2 .5-3.5-.5' stroke='%2360a5fa' stroke-width='1.2' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E" />
   <meta name="description" content="Auto-complete your VTU online courses while you do literally anything else with your life." />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1130,6 +1131,11 @@
         </button>
       </div>
 
+      <div id="queueBanner" hidden style="display:flex;align-items:center;gap:0.75rem;background:rgba(251,191,36,0.07);border:1px solid rgba(251,191,36,0.25);border-radius:10px;padding:0.75rem 1rem;margin-bottom:1rem;font-size:0.85rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="queueBannerText" style="color:#fbbf24;flex:1"></span>
+      </div>
+
       <div class="progress-bar-wrap">
         <div id="progressFill"></div>
       </div>
@@ -1320,20 +1326,43 @@
     });
   }
 
+  function setQueueBanner(position) {
+    const banner = document.getElementById("queueBanner");
+    const text   = document.getElementById("queueBannerText");
+    if (!position || position <= 0) {
+      banner.hidden = true;
+      return;
+    }
+    // Fetch total queue depth so we can show "X of Y"
+    fetch(API_BASE + "/api/queue").then(r => r.json()).then(q => {
+      const ahead = position - 1;
+      const total = q.total || position;
+      text.textContent = ahead === 0
+        ? `You're next! One job is finishing up ahead of you.`
+        : `You're #${position} in the queue — ${ahead} student${ahead > 1 ? "s" : ""} ahead of you (${total} job${total !== 1 ? "s" : ""} total). Each course takes ~20 min.`;
+      banner.hidden = false;
+    }).catch(() => {
+      text.textContent = `You're #${position} in the queue. Hang tight — each course takes ~20 min.`;
+      banner.hidden = false;
+    });
+  }
+
   function showProgressSection(jobId, position, existing = false) {
     document.getElementById("formSection").hidden     = true;
     document.getElementById("localSection").hidden    = true;
     document.getElementById("progressSection").hidden = false;
     document.getElementById("displayJobId").textContent = jobId;
     document.getElementById("completionSection").hidden = true;
+    document.getElementById("queueBanner").hidden = true;
     isCompleted = false;
     clearLog();
     if (existing) {
       appendLog("You already have a job running for this course \u2014 reconnecting to it...", "warn");
+    } else if (position > 1) {
+      setQueueBanner(position);
+      appendLog(`Queue position: ${position}. Sit tight \u2014 your turn is coming.`, "info");
     } else {
-      appendLog(position > 1
-        ? `Queue position: ${position}. Sit tight \u2014 your turn is coming.`
-        : "Autopilot engaged! Connecting to VTU servers...", "info");
+      appendLog("Autopilot engaged! Connecting to VTU servers...", "info");
     }
   }
 
@@ -1401,7 +1430,7 @@
     (snap.logs || []).forEach(({ type, data }) => handleEvent(type, data, true));
     if (snap.status === "done" && snap.result) onComplete(snap.result);
     else if (snap.status === "failed") onFailed(snap.result?.error || "Job failed");
-    else if (snap.status === "queued") appendLog(`Queue position: ${snap.position}`, "info");
+    else if (snap.status === "queued") { appendLog(`Queue position: ${snap.position}`, "info"); setQueueBanner(snap.position); }
   }
 
   function handleEvent(type, data, isReplay = false) {
@@ -1433,8 +1462,8 @@
       }
       case "complete": case "done": if (!isReplay) onComplete(data); break;
       case "failed":    if (!isReplay) onFailed(data.message); break;
-      case "queue_pos": if (!isReplay) appendLog(`Queue position updated: ${data.position}`, "info"); break;
-      case "status":    if (!isReplay && data.status === "processing") appendLog("Your job is now processing!", "info"); break;
+      case "queue_pos": if (!isReplay) { appendLog(`Queue position updated: ${data.position}`, "info"); setQueueBanner(data.position); } break;
+      case "status":    if (!isReplay && data.status === "processing") { document.getElementById("queueBanner").hidden = true; appendLog("Your job is now processing!", "info"); } break;
     }
   }
 
