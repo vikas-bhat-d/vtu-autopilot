@@ -1,0 +1,1058 @@
+
+
+https://online.vtu.ac.in/api/v1/auth/login
+POST
+payload
+{email: "vikasdbhat@gmail.com", password: "Vbd@777ok"}
+
+response
+{
+    "success": true,
+    "code": "SIGNIN_SUCCESS",
+    "message": "Login successful!",
+    "data": {
+        "id": 38466,
+        "name": "Vikas Bhat D",
+        "role_id": 3
+    },
+    "errors": [],
+    "meta": {
+        "version": "v1",
+        "server_time": "2026-04-20T22:37:26+05:30"
+    }
+}
+
+
+
+https://online.vtu.ac.in/api/v1/student/my-courses/1-social-networks
+
+response
+{
+    "success": true,
+    "code": "DATA_FOUND",
+    "message": "Data retrieved successfully",
+    "data": {
+        "id": 217,
+        "title": "Social Networks",
+        "slug": "1-social-networks",
+        "image_url": "",
+        "cover_url": "",
+        "course_type": null,
+        "total_lessons": 12,
+        "total_lectures": 166,
+        "total_duration": 0,
+        "total_quizzes": 0,
+        "total_resources": 0,
+        "total_assignments": 0,
+        "progress_bar": "0.00",
+        "resources": [],
+        "assignments": [],
+        "video_setup": {
+            "source_type": null,
+            "source_label": "None",
+            "is_external": false,
+            "video_id": null,
+            "video_url": null
+        },
+        "lessons": [
+            {
+                "id": 538,
+                "name": "Week 1: Introduction",
+                "total_lectures": 13,
+                "video_duration": "0s",
+                "lectures": [
+                    {
+                        "id": 2490,
+                        "title": "Introduction",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2499,
+                        "title": "Answer to the puzzle",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2503,
+                        "title": "Introduction to Python-1",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2507,
+                        "title": "Introduction to Python-2",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2511,
+                        "title": "Introduction to Networkx-1",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2515,
+                        "title": "Introduction to Networkx-2",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2518,
+                        "title": "Social Networks: The Challenge",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2522,
+                        "title": "Google Page Rank",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2527,
+                        "title": "Searching in a Network",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2530,
+                        "title": "Link Prediction",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2532,
+                        "title": "The Contagions",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2538,
+                        "title": "Importance of Acquaintances",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2539,
+                        "title": "Marketing on Social Networks",
+                        "is_completed": false
+                    }
+                ]
+            },
+            {
+                "id": 549,
+                "name": "Week 2: Handling Real-world Network Datasets",
+                "total_lectures": 13,
+                "video_duration": "0s",
+                "lectures": [
+                    {
+                        "id": 2545,
+                        "title": "Introduction to Datasets",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2554,
+                        "title": "Ingredients Network",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2558,
+                        "title": "Synonymy Network",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2561,
+                        "title": "Web Graph",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2566,
+                        "title": "Social Network Datasets",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2569,
+                        "title": "Datasets: Different Formats",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2574,
+                        "title": "Datasets : How to Download?",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2577,
+                        "title": "Datasets: Analysing Using Networkx",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2587,
+                        "title": "Datasets: Analysing Using Gephi",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2594,
+                        "title": "Introduction : Emergence of Connectedness",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2600,
+                        "title": "Advanced Material : Emergence of Connectedness",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2605,
+                        "title": "Programming Illustration : Emergence of Connectedness",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2608,
+                        "title": "Summary to Datasets",
+                        "is_completed": false
+                    }
+                ]
+            },
+            {
+                "id": 563,
+                "name": "Week 3: Strength of Weak Ties",
+                "total_lectures": 14,
+                "video_duration": "0s",
+                "lectures": [
+                    {
+                        "id": 2618,
+                        "title": "Introduction",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2625,
+                        "title": "Granovetter's Strength of weak ties",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2630,
+                        "title": "Triads, clustering coefficient and neighborhood overlap",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2636,
+                        "title": "Structure of weak ties, bridges, and local bridges",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2639,
+                        "title": "Validation of Granovetter's experiment using cell phone data",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2644,
+                        "title": "Embededness",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2648,
+                        "title": "Structural Holes",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2652,
+                        "title": "Social Capital",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2654,
+                        "title": "Finding Communities in a graph (Brute Force Method)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2657,
+                        "title": "Community Detection Using Girvan Newman Algorithm",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2662,
+                        "title": "Visualising Communities using Gephi",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2666,
+                        "title": "Tie Strength, Social Media and Passive Engagement",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2669,
+                        "title": "Betweenness Measures and Graph Partitioning",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2673,
+                        "title": "Strong and Weak Relationship - Summary",
+                        "is_completed": false
+                    }
+                ]
+            },
+            {
+                "id": 574,
+                "name": "Week 4: Strong and Weak Relationships (Continued) & Homophily",
+                "total_lectures": 13,
+                "video_duration": "0s",
+                "lectures": [
+                    {
+                        "id": 2681,
+                        "title": "Introduction to Homophily - Should you watch your company ?",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2685,
+                        "title": "Selection and Social Influence",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2688,
+                        "title": "Interplay between Selection and Social Influence",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2695,
+                        "title": "Homophily - Definition and measurement",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2698,
+                        "title": "Foci Closure and Membership Closure",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2702,
+                        "title": "Introduction to Fatman Evolutionary model",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2708,
+                        "title": "Fatman Evolutionary Model- The Base Code (Adding people)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2711,
+                        "title": "Fatman Evolutionary Model- The Base Code (Adding Social Foci)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2714,
+                        "title": "Fatman Evolutionary Model- Implementing Homophily",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2718,
+                        "title": "Quantifying the Effect of Triadic Closure",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2720,
+                        "title": "Fatman Evolutionary Model- Implementing Closures",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2723,
+                        "title": "Fatman Evolutionary Model- Implementing Social Influence",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2729,
+                        "title": "Fatman Evolutionary Model- Storing and analyzing longitudnal data",
+                        "is_completed": false
+                    }
+                ]
+            },
+            {
+                "id": 583,
+                "name": "Week 5: Homophily Continued and Ve \/ -Ve Relationships",
+                "total_lectures": 21,
+                "video_duration": "0s",
+                "lectures": [
+                    {
+                        "id": 2735,
+                        "title": "Spatial Segregation: An Introduction",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2738,
+                        "title": "Spatial Segregation: Simulation of the Schelling Model",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2741,
+                        "title": "Spatial Segregation: Conclusion",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2744,
+                        "title": "Schelling Model Implementation-1(Introduction)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2747,
+                        "title": "Schelling Model Implementation-2 (Base Code)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2750,
+                        "title": "Schelling Model Implementation-3 (Visualization and Getting a list of boundary and internal nodes)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2752,
+                        "title": "Schelling Model Implementation-4 (Getting a list of unsatisfied nodes)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2754,
+                        "title": "Schelling Model Implementation-5 (Shifting the unsatisfied nodes and visualizing the final graph)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2756,
+                        "title": "CHAPTER - 5 POSITIVE AND NEGATIVE RELATIONSHIPS (INTRODUCTION)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2758,
+                        "title": "STRUCTURAL BALANCE",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2760,
+                        "title": "ENEMY'S ENEMY IS A FRIEND",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2762,
+                        "title": "Characterizing the structure of balanced networks",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2764,
+                        "title": "BALANCE THEOREM",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2766,
+                        "title": "PROOF OF BALANCE THEOREM",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2768,
+                        "title": "Introduction to positive and negative edges",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2770,
+                        "title": "Outline of implemantation",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2772,
+                        "title": "Creating graph, displaying it and counting unstable triangles",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2774,
+                        "title": "Moving a network from an unstable to stable state",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2775,
+                        "title": "Forming two coalitions",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2776,
+                        "title": "Forming two coalitions contd",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2778,
+                        "title": "Visualizing coalitions and the evolution",
+                        "is_completed": false
+                    }
+                ]
+            },
+            {
+                "id": 588,
+                "name": "Week 6: Link Analysis",
+                "total_lectures": 12,
+                "video_duration": "0s",
+                "lectures": [
+                    {
+                        "id": 2783,
+                        "title": "The Web Graph",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2810,
+                        "title": "Collecting the Web Graph",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2811,
+                        "title": "Equal Coin Distribution",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2814,
+                        "title": "Random Coin Dropping",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2817,
+                        "title": "Google Page Ranking Using Web Graph",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2821,
+                        "title": "Implementing PageRank Using Points Distribution Method-1",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2823,
+                        "title": "Implementing PageRank Using Points Distribution Method-2",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2824,
+                        "title": "Implementing PageRank Using Points Distribution Method-3",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2826,
+                        "title": "Implementing PageRank Using Points Distribution Method-4",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2827,
+                        "title": "Implementing PageRank Using Random Walk Method -1",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2828,
+                        "title": "Implementing PageRank Using Random Walk Method -2",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2829,
+                        "title": "DegreeRank versus PageRank",
+                        "is_completed": false
+                    }
+                ]
+            },
+            {
+                "id": 597,
+                "name": "Week 7: Cascading Behavior in Networks",
+                "total_lectures": 14,
+                "video_duration": "0s",
+                "lectures": [
+                    {
+                        "id": 2830,
+                        "title": "We Follow",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2833,
+                        "title": "Why do we Follow?",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2836,
+                        "title": "Diffusion in Networks",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2838,
+                        "title": "Modeling Diffusion",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2842,
+                        "title": "Modeling Diffusion (continued)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2845,
+                        "title": "Impact of Commmunities on Diffusion",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2848,
+                        "title": "Cascade and Clusters",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2850,
+                        "title": "Knowledge, Thresholds and the Collective Action",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2853,
+                        "title": "An Introduction to the Programming Screencast (Coding 4 major ideas)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2855,
+                        "title": "The Base Code",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2857,
+                        "title": "Coding the First Big Idea - Increasing the Payoff",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2860,
+                        "title": "Coding the Second Big Idea - Key People",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2863,
+                        "title": "Coding the Third Big Idea- Impact of Communities on Cascades",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2866,
+                        "title": "Coding the Fourth Big Idea - Cascades and Clusters",
+                        "is_completed": false
+                    }
+                ]
+            },
+            {
+                "id": 604,
+                "name": "Week 8: Link Analysis (Continued)",
+                "total_lectures": 14,
+                "video_duration": "0s",
+                "lectures": [
+                    {
+                        "id": 2871,
+                        "title": "Introduction to Hubs and Authorities (A Story)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2877,
+                        "title": "Principle of Repeated Improvement (A story)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2879,
+                        "title": "Principle of Repeated Improvement (An example)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2882,
+                        "title": "Hubs and Authorities",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2884,
+                        "title": "PageRank Revisited - An example",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2887,
+                        "title": "PageRank Revisited - Convergence in the Example",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2892,
+                        "title": "PageRank Revisited - Conservation and Convergence",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2895,
+                        "title": "PageRank, conservation and convergence - Another example",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2897,
+                        "title": "Matrix Multiplication (Pre-requisite 1)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2900,
+                        "title": "Convergence in Repeated Matrix Multiplication (Pre-requisite 1)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2903,
+                        "title": "Addition of Two Vectors (Pre-requisite 2)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2906,
+                        "title": "Convergence in Repeated Matrix Multiplication- The Details",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2909,
+                        "title": "PageRank as a Matrix Operation",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2912,
+                        "title": "PageRank Explained",
+                        "is_completed": false
+                    }
+                ]
+            },
+            {
+                "id": 613,
+                "name": "Week 09 - Rich Get Richer Phenomenon",
+                "total_lectures": 11,
+                "video_duration": "0s",
+                "lectures": [
+                    {
+                        "id": 2916,
+                        "title": "Introduction to Powerlaw",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2918,
+                        "title": "Why do Normal Distributions Appear?",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2919,
+                        "title": "Power Law emerges in WWW graphs",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2920,
+                        "title": "Detecting the Presence of Powerlaw",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2923,
+                        "title": "Rich Get Richer Phenomenon",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2926,
+                        "title": "Summary So Far",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2928,
+                        "title": "Implementing Rich-getting-richer Phenomenon (Barabasi-Albert Model)-1",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2932,
+                        "title": "Implementing Rich-getting-richer Phenomenon (Barabasi-Albert Model)-2",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2933,
+                        "title": "Implementing a Random Graph (Erdos- Renyi Model)-1",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2934,
+                        "title": "Implementing a Random Graph (Erdos- Renyi Model)-2",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2935,
+                        "title": "Forced Versus Random Removal of Nodes (Attack Survivability)",
+                        "is_completed": false
+                    }
+                ]
+            },
+            {
+                "id": 617,
+                "name": "Week 10 - Rich Get Richer Phenomenon - 2",
+                "total_lectures": 17,
+                "video_duration": "0s",
+                "lectures": [
+                    {
+                        "id": 2941,
+                        "title": "Rich Get Richer - A Possible Reason",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2944,
+                        "title": "Rich Get Richer - The Long Tail",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2947,
+                        "title": "Epidemics- An Introduction",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2948,
+                        "title": "Introduction to epidemics (contd..)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2951,
+                        "title": "Simple Branching Process for Modeling Epidemics",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2953,
+                        "title": "Simple Branching Process for Modeling Epidemics (contd..)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2956,
+                        "title": "Basic Reproductive Number",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2957,
+                        "title": "Modeling epidemics on complex networks",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2958,
+                        "title": "SIR and SIS spreading models",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2960,
+                        "title": "Comparison between SIR and SIS spreading models",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2961,
+                        "title": "Basic Reproductive Number Revisited for Complex Networks",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2962,
+                        "title": "Percolation model",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2963,
+                        "title": "Analysis of basic reproductive number in branching model (The problem statement)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2965,
+                        "title": "Analyzing basic reproductive number 2",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2968,
+                        "title": "Analyzing basic reproductive number 3",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2973,
+                        "title": "Analyzing basic reproductive number 4",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2974,
+                        "title": "Analyzing basic reproductive number 5",
+                        "is_completed": false
+                    }
+                ]
+            },
+            {
+                "id": 622,
+                "name": "Week 11 - The Small World Effect",
+                "total_lectures": 7,
+                "video_duration": "0s",
+                "lectures": [
+                    {
+                        "id": 2976,
+                        "title": "Small World Effect - An Introduction",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2980,
+                        "title": "Milgram's Experiment",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2982,
+                        "title": "The Reason",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2985,
+                        "title": "The Generative Model",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2987,
+                        "title": "Decentralized Search - I",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2990,
+                        "title": "Decentralized Search - II",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2991,
+                        "title": "Decentralized Search - III",
+                        "is_completed": false
+                    }
+                ]
+            },
+            {
+                "id": 625,
+                "name": "Week 12 - How to go Viral on Web",
+                "total_lectures": 17,
+                "video_duration": "0s",
+                "lectures": [
+                    {
+                        "id": 2997,
+                        "title": "Programming illustration- Small world networks : Introduction",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 2999,
+                        "title": "Base code",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3001,
+                        "title": "Making homophily based edges",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3004,
+                        "title": "Adding weak ties",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3007,
+                        "title": "Plotting change in diameter",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3009,
+                        "title": "Programming illustration- Myopic Search : Introduction",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3012,
+                        "title": "Myopic Search",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3014,
+                        "title": "Myopic Search comparision to optimal search",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3015,
+                        "title": "Time Taken by Myopic Search",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3017,
+                        "title": "PseudoCores : Introduction",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3019,
+                        "title": "How to be Viral",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3022,
+                        "title": "Who are the right key nodes?",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3023,
+                        "title": "finding the right key nodes (the core)",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3025,
+                        "title": "Coding K-Shell Decomposition",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3028,
+                        "title": "Coding cascading Model",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3030,
+                        "title": "Coding the importance of core nodes in cascading",
+                        "is_completed": false
+                    },
+                    {
+                        "id": 3033,
+                        "title": "Pseudo core",
+                        "is_completed": false
+                    }
+                ]
+            }
+        ]
+    },
+    "errors": [],
+    "meta": {
+        "version": "v1",
+        "server_time": "2026-04-20T21:25:40+05:30"
+    }
+}
+
+
+https://online.vtu.ac.in/api/v1/student/my-courses/1-social-networks/lectures/2490
+GET 
+
+Response:
+{
+  "success": true,
+  "code": "DATA_FOUND",
+  "message": "Data retrieved successfully",
+  "data": {
+    "id": 2490,
+    "title": "Introduction",
+    "is_free": true,
+    "duration": "00:08:55 mins",
+    "content": {
+      "video_setup": {
+        "source_type": "youtube",
+        "is_playable": true,
+        "is_external": true,
+        "video_id": "v9GQyenwwzw",
+        "video_url": null
+      },
+      "document_setup": null,
+      "iframe_code": null
+    },
+    "progress": 28,
+    "overall_progress": 0,
+    "is_completed": false,
+    "is_locked": false
+  },
+  "errors": [],
+  "meta": {
+    "version": "v1",
+    "server_time": "2026-04-20T22:40:46+05:30"
+  }
+}
+
+
+https://online.vtu.ac.in/api/v1/student/my-courses/1-social-networks/lectures/2490/progress
+POST
+
+payload
+{
+    "current_time_seconds": 531,
+    "total_duration_seconds": 535,
+    "seconds_just_watched": 120
+}
+
+response
+{
+    "success": true,
+    "code": "PROGRESS_UPDATED",
+    "message": "Progress saved.",
+    "data": {
+        "percent": 11,
+        "is_completed": false
+    },
+    "errors": [],
+    "meta": {
+        "version": "v1",
+        "server_time": "2026-04-20T21:25:40+05:30"
+    }
+}
+
+
+
