@@ -103,8 +103,13 @@ async function runAutomation(
 
   const total = lectures.length;
 
-  async function doLecture(lec, idx) {
-    emit("lecture_start", { idx, total, title: lec.title });
+  // Lectures to retry after the first pass.
+  // Only "maxed" (hit attempt cap) and "error" (network/server crash) are retryable.
+  // "skip" (zero duration) is a permanent data condition — retrying won't help.
+  const retryable = [];
+
+  async function doLecture(lec, idx, isRetry = false) {
+    if (!isRetry) emit("lecture_start", { idx, total, title: lec.title });
     try {
       const detailRes = await request({
         method: "GET",
@@ -113,8 +118,11 @@ async function runAutomation(
       const secs = parseDuration(detailRes.data.data.duration);
 
       if (!secs) {
-        skipped++;
-        emit("lecture_done", { idx, total, title: lec.title, status: "skip", completed, skipped });
+        // Zero duration — VTU has no watchable content here; skip permanently.
+        if (!isRetry) {
+          skipped++;
+          emit("lecture_done", { idx, total, title: lec.title, status: "skip", completed, skipped });
+        }
         return;
       }
 
@@ -133,17 +141,25 @@ async function runAutomation(
         });
         const { percent, is_completed } = r.data.data || {};
         if (percent === 100 && is_completed) {
+          if (isRetry) skipped--; // undo the skipped count from the first pass
           completed++;
-          emit("lecture_done", { idx, total, title: lec.title, status: "done", completed, skipped });
+          emit("lecture_done", { idx, total, title: lec.title, status: "done", completed, skipped, retry: isRetry });
           return;
         }
       }
 
-      skipped++;
-      emit("lecture_done", { idx, total, title: lec.title, status: "maxed", completed, skipped });
+      // Still not completed after all attempts
+      if (!isRetry) {
+        skipped++;
+        retryable.push({ lec, idx });
+      }
+      emit("lecture_done", { idx, total, title: lec.title, status: "maxed", completed, skipped, retry: isRetry });
     } catch (err) {
-      skipped++;
-      emit("lecture_done", { idx, total, title: lec.title, status: "error", error: err.message, completed, skipped });
+      if (!isRetry) {
+        skipped++;
+        retryable.push({ lec, idx });
+      }
+      emit("lecture_done", { idx, total, title: lec.title, status: "error", error: err.message, completed, skipped, retry: isRetry });
     }
   }
 
@@ -151,6 +167,16 @@ async function runAutomation(
     await Promise.all(
       lectures.slice(i, i + batchSize).map((lec, j) => doLecture(lec, i + j + 1))
     );
+  }
+
+  // ── Retry pass ────────────────────────────────────────────────────────────
+  if (retryable.length > 0) {
+    emit("phase", { message: `Retrying ${retryable.length} stubborn lecture(s) that didn't stick first time...` });
+    for (let i = 0; i < retryable.length; i += batchSize) {
+      await Promise.all(
+        retryable.slice(i, i + batchSize).map(({ lec, idx }) => doLecture(lec, idx, true))
+      );
+    }
   }
 
   emit("complete", { completed, skipped, total, courseTitle });

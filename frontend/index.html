@@ -1140,7 +1140,7 @@
         if (!res.ok) { showFormError(data.error || "Something went wrong."); setFormLoading(false); return; }
         currentJobId = data.jobId;
         location.hash = currentJobId;
-        showProgressSection(data.jobId, data.position);
+        showProgressSection(data.jobId, data.position, data.existing);
         connectToJob(data.jobId);
       } catch (_) {
         showFormError("Network error. Check your connection and try again.");
@@ -1176,16 +1176,20 @@
     });
   }
 
-  function showProgressSection(jobId, position) {
+  function showProgressSection(jobId, position, existing = false) {
     document.getElementById("formSection").hidden     = true;
     document.getElementById("progressSection").hidden = false;
     document.getElementById("displayJobId").textContent = jobId;
     document.getElementById("completionSection").hidden = true;
     isCompleted = false;
     clearLog();
-    appendLog(position > 1
-      ? `Queue position: ${position}. Sit tight &mdash; your turn is coming.`
-      : "Autopilot engaged! Connecting to VTU servers...", "info");
+    if (existing) {
+      appendLog("You already have a job running for this course \u2014 reconnecting to it...", "warn");
+    } else {
+      appendLog(position > 1
+        ? `Queue position: ${position}. Sit tight \u2014 your turn is coming.`
+        : "Autopilot engaged! Connecting to VTU servers...", "info");
+    }
   }
 
   function setupProgressControls() {
@@ -1265,15 +1269,19 @@
         document.getElementById("savedHoursBanner").textContent = h;
         break;
       case "lecture_done": {
-        jobProcessed = data.idx;
-        const pct = jobTotal ? Math.round((data.idx / jobTotal) * 100) : 0;
-        updateBar(pct, data.idx, jobTotal);
+        // Don't move the progress bar on retry — first-pass position stands
+        if (!data.retry) {
+          jobProcessed = data.idx;
+          const pct = jobTotal ? Math.round((data.idx / jobTotal) * 100) : 0;
+          updateBar(pct, data.idx, jobTotal);
+        }
+        const retryTag = data.retry ? " [retry]" : "";
         if (data.status === "done")
-          appendLog(`[${data.idx}/${jobTotal}] ${data.title}`, "success");
+          appendLog(`[${data.idx}/${jobTotal}] ${data.title}${retryTag}`, "success");
         else if (data.status === "skip" || data.status === "maxed")
-          appendLog(`[${data.idx}/${jobTotal}] Skipped: ${data.title}`, "warn");
+          appendLog(`[${data.idx}/${jobTotal}] Skipped: ${data.title}${retryTag}`, "warn");
         else if (data.status === "error")
-          appendLog(`[${data.idx}/${jobTotal}] Error: ${data.title}`, "error");
+          appendLog(`[${data.idx}/${jobTotal}] Error: ${data.title}${retryTag}`, "error");
         break;
       }
       case "complete": case "done": if (!isReplay) onComplete(data); break;

@@ -30,6 +30,9 @@ const queue = [];
 // SSE connections: jobId → Set<Response>
 const sseConnections = new Map();
 
+// Dedup: "email:courseSlug" → jobId  — only populated while job is active
+const activeJobKeys = new Map();
+
 let activeJobs = 0;
 const MAX_CONCURRENT = parseInt(process.env.MAX_CONCURRENT) || 2;
 
@@ -98,6 +101,9 @@ function drainQueue() {
       config.email = null;
       config.password = null;
 
+      // Release dedup slot so the user can re-run the same course later
+      activeJobKeys.delete(job.dedupKey);
+
       // Expire job after 1 hour
       setTimeout(() => {
         jobs.delete(jobId);
@@ -112,6 +118,7 @@ function drainQueue() {
       push(jobId, "failed", { message: "Unexpected server error. Try again." });
       config.email = null;
       config.password = null;
+      activeJobKeys.delete(job.dedupKey);
       drainQueue();
     });
 }
@@ -161,6 +168,16 @@ app.post("/api/submit", submitLimit, (req, res) => {
       .json({ error: "Invalid course slug. Use letters, numbers, and hyphens only." });
   }
 
+  // Dedup: return existing active job for same user+course
+  const dedupKey = `${email.toLowerCase()}:${courseSlug.toLowerCase()}`;
+  const existingId = activeJobKeys.get(dedupKey);
+  if (existingId) {
+    const existing = jobs.get(existingId);
+    if (existing && (existing.status === "queued" || existing.status === "processing")) {
+      return res.json({ jobId: existingId, position: existing.position, existing: true });
+    }
+  }
+
   const jobId = uuidv4();
   const position = queue.length + activeJobs + 1;
 
@@ -168,12 +185,15 @@ app.post("/api/submit", submitLimit, (req, res) => {
     id: jobId,
     status: "queued",
     position,
+    dedupKey,
     logs: [],
     total: 0,
     processed: 0,
     progress: 0,
     createdAt: Date.now(),
   });
+
+  activeJobKeys.set(dedupKey, jobId);
 
   // Fire-and-forget: increment student counter in Redis
   recordJobCreated().catch(() => {});
