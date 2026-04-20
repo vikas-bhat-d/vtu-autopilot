@@ -1342,7 +1342,7 @@
         : `You're #${position} in the queue — ${ahead} student${ahead > 1 ? "s" : ""} ahead of you (${total} job${total !== 1 ? "s" : ""} total). Each course takes ~20 min.`;
       banner.hidden = false;
     }).catch(() => {
-      text.textContent = `You're #${position} in the queue. Hang tight — each course takes ~20 min.`;
+      text.textContent = `You're #${position} in the queue. Hang tight — each course takes ~10-15 min.`;
       banner.hidden = false;
     });
   }
