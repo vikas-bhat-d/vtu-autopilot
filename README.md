@@ -138,6 +138,23 @@ npm run start:dairy
 
 Uses `index.js` for internship diary automation.
 
+## Run Locally (3 Commands)
+
+Already have **Git** and **Node.js** installed? Run VTU Autopilot on your own system in 3 commands — no external servers needed. This saves resources for other students.
+
+```bash
+git clone https://github.com/vikas-bhat-d/vtu-course-automation && cd vtu-course-automation && npm install
+npm run serve
+```
+
+Then open **http://localhost:3000** in your browser. That's it!
+
+**Why run locally?**
+- 🔒 Your credentials stay on your machine
+- ⚡ Faster processing (no server queue)
+- 🌍 Saves bandwidth for students using the web UI
+- 📴 Works even with intermittent internet (local retries)
+
 ## License
 
 ISC

@@ -697,6 +697,95 @@
     .github-sub a { color: var(--accent); text-decoration: none; }
     .github-sub a:hover { text-decoration: underline; }
 
+    /* ── Run Locally section ─────────────────────────────────────── */
+    .local-section {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem 2rem;
+      background: rgba(255,255,255,0.02);
+    }
+    .local-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .local-header-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(96,165,250,0.1);
+      border: 1px solid rgba(96,165,250,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .local-header-icon svg { width: 16px; height: 16px; }
+    .local-header h3 { font-size: 1rem; font-weight: 600; margin: 0; }
+    .local-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.55; }
+    .local-commands {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1.25rem;
+    }
+    .local-cmd {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 0.9rem;
+    }
+    .local-cmd-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(96,165,250,0.1);
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem;
+      flex-shrink: 0;
+    }
+    .local-cmd code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      color: var(--green);
+      flex: 1;
+      word-break: break-all;
+    }
+    .local-cmd-copy {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      padding: 0.2rem;
+      border-radius: 4px;
+      display: flex;
+      transition: color 0.15s;
+    }
+    .local-cmd-copy:hover { color: var(--text); }
+    .local-cmd-copy svg { width: 14px; height: 14px; }
+    .local-perks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .local-perk {
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.25rem 0.75rem;
+    }
+    .local-perk span { color: var(--text); }
+    @media (max-width: 600px) {
+      .local-section { padding: 1.25rem; }
+    }
+
     footer {
       text-align: center;
       padding: 2.5rem 0;
@@ -973,6 +1062,50 @@
     </div>
   </section>
 
+  <section id="localSection">
+    <div class="local-section">
+      <div class="local-header">
+        <div class="local-header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <h3>Have Git &amp; Node? Run it on your own machine.</h3>
+      </div>
+      <p class="local-desc">
+        This saves server resources for students who need it. Your credentials never leave your laptop, and there&rsquo;s no queue.
+      </p>
+      <div class="local-commands">
+        <div class="local-cmd">
+          <span class="local-cmd-num">1</span>
+          <code id="lcmd1">git clone https://github.com/vikas-bhat-d/vtu-course-automation &amp;&amp; cd vtu-course-automation &amp;&amp; npm install</code>
+          <button class="local-cmd-copy" onclick="copyCmd('lcmd1', this)" title="Copy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <div class="local-cmd">
+          <span class="local-cmd-num">2</span>
+          <code id="lcmd2">npm run serve</code>
+          <button class="local-cmd-copy" onclick="copyCmd('lcmd2', this)" title="Copy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <div class="local-cmd">
+          <span class="local-cmd-num">3</span>
+          <code id="lcmd3">open http://localhost:3000</code>
+          <button class="local-cmd-copy" onclick="copyCmd('lcmd3', this)" title="Copy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="local-perks">
+        <div class="local-perk"><span>No queue</span> &mdash; instant start</div>
+        <div class="local-perk"><span>Credentials stay local</span> &mdash; never hit a server</div>
+        <div class="local-perk"><span>Frees up capacity</span> &mdash; for students without Node</div>
+      </div>
+    </div>
+  </section>
+
   <section id="progressSection" hidden>
     <p class="section-label">Live progress</p>
     <h2 class="section-title">Autopilot Active</h2>
@@ -1104,6 +1237,17 @@
     }, interval);
   }
 
+  function copyCmd(id, btn) {
+    const text = document.getElementById(id).textContent
+      .replace(/&amp;/g, "&").replace(/&amp;&amp;/g, "&&");
+    navigator.clipboard?.writeText(text).then(() => {
+      const orig = btn.innerHTML;
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+      btn.style.color = "var(--green)";
+      setTimeout(() => { btn.innerHTML = orig; btn.style.color = ""; }, 1500);
+    });
+  }
+
   function setupForm() {
     let pwVisible = false;
     document.getElementById("togglePw").addEventListener("click", () => {
@@ -1178,6 +1322,7 @@
 
   function showProgressSection(jobId, position, existing = false) {
     document.getElementById("formSection").hidden     = true;
+    document.getElementById("localSection").hidden    = true;
     document.getElementById("progressSection").hidden = false;
     document.getElementById("displayJobId").textContent = jobId;
     document.getElementById("completionSection").hidden = true;
@@ -1216,6 +1361,7 @@
       location.hash = "";
       document.getElementById("progressSection").hidden = true;
       document.getElementById("formSection").hidden     = false;
+      document.getElementById("localSection").hidden    = false;
       setFormLoading(false);
       document.getElementById("submitForm").reset();
       clearLog();
@@ -1229,6 +1375,7 @@
 
     if (document.getElementById("progressSection").hidden) {
       document.getElementById("formSection").hidden     = true;
+      document.getElementById("localSection").hidden    = true;
       document.getElementById("progressSection").hidden = false;
       document.getElementById("completionSection").hidden = true;
       clearLog();
