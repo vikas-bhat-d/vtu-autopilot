@@ -848,10 +848,36 @@
   }
 
   // ── Form ──────────────────────────────────────────────────────────────────
+  function extractSlug(raw) {
+    const s = raw.trim();
+    // If it looks like a URL, pull the last non-empty path segment
+    if (s.includes("/")) {
+      try {
+        const url = new URL(s.startsWith("http") ? s : "https://" + s);
+        const parts = url.pathname.split("/").filter(Boolean);
+        if (parts.length) return parts[parts.length - 1];
+      } catch (_) {
+        // Not a valid URL — fall through and use the raw value
+        const parts = s.split("/").filter(Boolean);
+        if (parts.length) return parts[parts.length - 1];
+      }
+    }
+    return s;
+  }
+
   function setupForm() {
     document.getElementById("togglePw").addEventListener("click", () => {
       const pw = document.getElementById("password");
       pw.type = pw.type === "password" ? "text" : "password";
+    });
+
+    // Auto-strip URL to slug as the user types / pastes
+    const slugInput = document.getElementById("courseSlug");
+    slugInput.addEventListener("input", () => {
+      const parsed = extractSlug(slugInput.value);
+      if (parsed !== slugInput.value.trim()) {
+        slugInput.value = parsed;
+      }
     });
 
     document.getElementById("submitForm").addEventListener("submit", async (e) => {
@@ -860,7 +886,7 @@
 
       const email      = document.getElementById("email").value.trim();
       const password   = document.getElementById("password").value;
-      const courseSlug = document.getElementById("courseSlug").value.trim();
+      const courseSlug = extractSlug(document.getElementById("courseSlug").value);
 
       if (!email || !password || !courseSlug) {
         showFormError("Fill in all three fields. VTU won't automate itself.");
