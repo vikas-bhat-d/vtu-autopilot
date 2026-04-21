@@ -81,6 +81,15 @@ function drainQueue() {
   push(jobId, "status", { status: "processing" });
   activeJobs++;
 
+  // Shared cleanup — called from both .then() and .catch()
+  function scheduleJobExpiry() {
+    setTimeout(() => {
+      jobs.delete(jobId);
+      sseConnections.delete(jobId);
+      deleteJob(jobId).catch(() => {});
+    }, 3_600_000);
+  }
+
   runAutomation(config, (type, data) => {
     // Keep a rolling 200-entry log for late-joiners to replay
     job.logs.push({ type, data, ts: Date.now() });
@@ -128,13 +137,7 @@ function drainQueue() {
       // Release dedup slot so the user can re-run the same course later
       activeJobKeys.delete(job.dedupKey);
 
-      // Expire job after 1 hour
-      setTimeout(() => {
-        jobs.delete(jobId);
-        sseConnections.delete(jobId);
-        deleteJob(jobId).catch(() => {});
-      }, 3_600_000);
-
+      scheduleJobExpiry();
       drainQueue();
     })
     .catch((err) => {
@@ -146,6 +149,7 @@ function drainQueue() {
       config.email = null;
       config.password = null;
       activeJobKeys.delete(job.dedupKey);
+      scheduleJobExpiry();
       drainQueue();
     });
 }
@@ -287,6 +291,7 @@ app.get("/api/status/:jobId", async (req, res) => {
   );
 
   if (job.status === "done" || job.status === "failed") {
+    sseConnections.get(jobId)?.delete(res);
     res.end();
     return;
   }
