@@ -84,7 +84,7 @@ async function runAutomation(
     lectures = [];
     (d.lessons || []).forEach((lesson) => {
       (lesson.lectures || []).forEach((lec) => {
-        lectures.push({ id: lec.id, title: lec.title, week: lesson.name });
+        lectures.push({ id: lec.id, title: lec.title, week: lesson.name, is_completed: lec.is_completed === true });
       });
     });
     emit("log", { text: `✓ "${courseTitle}" — ${lectures.length} lectures found`, level: "success" });
@@ -109,6 +109,11 @@ async function runAutomation(
   const retryable = [];
 
   async function doLecture(lec, idx, isRetry = false) {
+    if (lec.is_completed && !isRetry) {
+      skipped++;
+      emit("lecture_done", { idx, total, title: lec.title, status: "skip", reason: "Already completed", completed, skipped });
+      return;
+    }
     if (!isRetry) emit("lecture_start", { idx, total, title: lec.title });
     try {
       const detailRes = await request({
