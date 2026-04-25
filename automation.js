@@ -2,9 +2,12 @@
 
 const axios = require("axios");
 const { wrapper } = require("axios-cookiejar-support");
+const { configDotenv } = require("dotenv");
 const tough = require("tough-cookie");
+configDotenv()
 
-const VTU_API = "https://online.vtu.ac.in/api/v1";
+const VTU_API = process.env.VTU_API_BASE_URL 
+
 
 /** Pause execution for `ms` milliseconds. */
 function sleep(ms) {

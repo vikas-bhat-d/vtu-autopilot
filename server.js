@@ -24,7 +24,9 @@ const {
   getDedupKey,
   deleteDedupKey,
 } = require("./lib/redis");
+const { configDotenv } = require("dotenv");
 
+configDotenv()
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -40,6 +42,13 @@ const runtimeConfig = {
   maxAttempts:    parseInt(process.env.DEFAULT_MAX_ATTEMPTS) || 50,
   retryDelay:     parseInt(process.env.RETRY_DELAY_MS)       || 2000,
   requestDelay:   parseInt(process.env.REQUEST_DELAY_MS)     || 500,
+};
+
+// ── Notification state ───────────────────────────────────────────────────────
+// Can be managed via GET /api/admin/notification?password=<pw>[&message=...&disabled=...]
+const notificationState = {
+  message: "",
+  disabled: false,
 };
 
 // ── In-memory job store ──────────────────────────────────────────────────────
@@ -344,6 +353,11 @@ app.get("/api/queue", (_req, res) => {
   res.json({ queued: queue.length, processing: activeJobs, total: queue.length + activeJobs });
 });
 
+// GET /api/notification  — public notification state (message + submit button disabled status)
+app.get("/api/notification", (_req, res) => {
+  res.json(notificationState);
+});
+
 // ── Admin — password-protected config management ──────────────────────────────
 // Set ADMIN_PASSWORD in your .env to enable these routes.
 
@@ -448,6 +462,41 @@ app.get("/api/admin/monitor", adminLimit, adminAuth, (_req, res) => {
     queueLength: queued.length,
     processing,
     queued,
+  });
+});
+
+// GET /api/admin/notification?password=<pw>[&message=...&disabled=...]
+// Returns current notification state. If message or disabled params are provided,
+// updates them first, then returns the updated state.
+app.get("/api/admin/notification", adminLimit, adminAuth, (req, res) => {
+  const updates = {};
+
+  // Check if message parameter is provided
+  if ("message" in req.query) {
+    const msg = String(req.query.message ?? "");
+    if (msg.length > 500) {
+      return res.status(400).json({ error: "Notification message must be 500 characters or less." });
+    }
+    updates.message = msg;
+  }
+
+  // Check if disabled parameter is provided
+  if ("disabled" in req.query) {
+    const disabled = String(req.query.disabled).toLowerCase();
+    if (!["true", "false", "1", "0", "yes", "no"].includes(disabled)) {
+      return res.status(400).json({ error: `"disabled" must be true or false.` });
+    }
+    updates.disabled = ["true", "1", "yes"].includes(disabled);
+  }
+
+  // Apply updates if any were provided
+  if (Object.keys(updates).length > 0) {
+    Object.assign(notificationState, updates);
+    console.log("[admin] Notification updated:", updates);
+  }
+
+  res.json({
+    notification: notificationState,
   });
 });
 

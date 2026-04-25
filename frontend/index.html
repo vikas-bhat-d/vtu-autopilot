@@ -1131,6 +1131,11 @@
         </button>
       </div>
 
+      <div id="adminNotificationBanner" hidden style="display:flex;align-items:center;gap:0.75rem;background:rgba(96,165,250,0.07);border:1px solid rgba(96,165,250,0.25);border-radius:10px;padding:0.75rem 1rem;margin-bottom:1rem;font-size:0.85rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M6 9l6-6 6 6M9 5v14a1 1 0 001 1h8a1 1 0 001-1V5"/></svg>
+        <span id="adminNotificationText" style="color:#60a5fa;flex:1"></span>
+      </div>
+
       <div id="queueBanner" hidden style="display:flex;align-items:center;gap:0.75rem;background:rgba(251,191,36,0.07);border:1px solid rgba(251,191,36,0.25);border-radius:10px;padding:0.75rem 1rem;margin-bottom:1rem;font-size:0.85rem;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         <span id="queueBannerText" style="color:#fbbf24;flex:1"></span>
@@ -1209,6 +1214,7 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     loadStats();
+    loadNotification();
     setupForm();
     setupTracker();
     setupProgressControls();
@@ -1241,6 +1247,44 @@
       el.textContent = Math.floor(current).toLocaleString();
       if (current >= target) clearInterval(t);
     }, interval);
+  }
+
+  async function loadNotification() {
+    try {
+      const data = await fetch(API_BASE + "/api/notification").then(r => r.json());
+      updateNotificationUI(data);
+      // Refresh notification state every 10 seconds to pick up admin changes
+      setInterval(() => {
+        fetch(API_BASE + "/api/notification").then(r => r.json()).then(updateNotificationUI).catch(() => {});
+      }, 10_000);
+    } catch (_) {}
+  }
+
+  function updateNotificationUI({ message, disabled }) {
+    const banner = document.getElementById("adminNotificationBanner");
+    const text = document.getElementById("adminNotificationText");
+    const submitBtn = document.getElementById("submitBtn");
+
+    // Show/hide banner based on whether there's a message
+    if (message && message.trim()) {
+      text.textContent = message;
+      banner.hidden = false;
+    } else {
+      banner.hidden = true;
+    }
+
+    // Enable/disable submit button
+    if (submitBtn) {
+      // Only override disabled if this is a form action (not already loading)
+      if (!submitBtn.classList.contains("loading")) {
+        submitBtn.disabled = disabled;
+      }
+    }
+
+    // Also disable form inputs if disabled
+    if (disabled) {
+      document.querySelectorAll("#submitForm input").forEach(i => i.disabled = true);
+    }
   }
 
   function copyCmd(id, btn) {
